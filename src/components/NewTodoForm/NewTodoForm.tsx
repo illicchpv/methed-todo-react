@@ -15,7 +15,7 @@ const NewTodoForm: React.FC<NewTodoFormProps> = ({ value, updateText, handleActi
         value={value}
         onChange={(e) => updateText(e.target.value)}
       />
-      <button onClick={handleAction}> + </button>
+      <button className={style.ok} disabled={!value} onClick={handleAction}> + </button>
     </div>
   );
 };

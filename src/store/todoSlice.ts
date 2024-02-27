@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { genRandomId } from '../utils/utils';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+// import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export type Todo = {
   id: string;

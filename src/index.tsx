@@ -2,7 +2,7 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import App, { Login } from './App';
+import { Login } from './App';
 import store from './store';
 
 const root = ReactDOM.createRoot(

@@ -21,6 +21,12 @@
   flex-basis: 30px;
 }
 
+.index{
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 40px;
+}
+
 .del{
   flex-grow: 0;
   flex-shrink: 0;

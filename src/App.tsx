@@ -14,7 +14,7 @@ export function Login() {
   const [logged, setLogged] = useState(false)
   const [name, setName] = useState('')
   const [users, setUsers] = useState<string[]>([])
-  const { setItem, getItem, remItem, remUserInfo } = useLocalStorage('methed.2d.users')
+  const { setItem, getItem, remUserInfo } = useLocalStorage('methed.2d.users')
   const nnKey = name ? b64EncodeUnicode(name.toLowerCase()) : 'no'
   const { setItem: setItemU, getItem: getItemU } = useLocalStorage('methed.2d.' + nnKey)
   const dispatch = useAppDispatch();
@@ -22,9 +22,9 @@ export function Login() {
 
   useEffect(() => {
     if (!logged) {
-      let users = getItem()
-      if (!users) users = []
-      else setUsers(users)
+      let usersNew = getItem()
+      if (!usersNew) usersNew = []
+      if(JSON.stringify(users) !== JSON.stringify(usersNew)) setUsers(usersNew)
       console.log('useEffect(users: ', users);
     } else {
       console.log('logged name: ', name);
@@ -56,7 +56,7 @@ export function Login() {
       console.log('myTodos: ', myTodos);
       dispatch(setStorFn({ storFn: setItemU }))
     }
-  }, [logged]);
+  }, [logged, dispatch, getItem, getItemU, name, setItemU]);
 
   const handlerSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault()
@@ -85,7 +85,7 @@ export function Login() {
               value={name}
               onChange={e => setName(e.target.value)}
             ></input>
-            <button type='submit'>ok</button>
+            <button className={style.ok} disabled={!name} type='submit'>ok</button>
           </label>
 
         </form>
@@ -97,8 +97,9 @@ export function Login() {
                 const t = e.target as HTMLInputElement
                 if (t && t instanceof HTMLButtonElement) {
                   setName(t.innerText.trim())
+                  return
                 }
-                if (t && t instanceof HTMLAnchorElement) {
+                if (t && t instanceof HTMLElement) {
                   const b = t.closest('li')?.querySelector('button')
                   if (b) {
                     const nn = b.innerText.trim()
@@ -113,7 +114,7 @@ export function Login() {
             >
               {users.map((el, i) => (<li className={style.userItem} key={i}>
                 <button className={style.userSelect}>{el}</button>
-                <a className={style.del}>&times;</a>
+                <b className={style.del}>&times;</b>
               </li>))}
             </ul>
             {/* <button

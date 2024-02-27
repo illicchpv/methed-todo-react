@@ -8,12 +8,13 @@ const TodoList = () => {
 
   return (
     <ul className={style.list}>
-      {todos.map((todo) => {
+      {todos.map((todo, i) => {
         // console.log('todo: ', todo);
         return (
           <TodoItem
             key={todo.id}
             {...todo}
+            index={i + 1}
           />
         )
       })}
