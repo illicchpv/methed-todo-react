@@ -24,7 +24,7 @@ export function Login() {
     if (!logged) {
       let usersNew = getItem()
       if (!usersNew) usersNew = []
-      if(JSON.stringify(users) !== JSON.stringify(usersNew)) setUsers(usersNew)
+      if (JSON.stringify(users) !== JSON.stringify(usersNew)) setUsers(usersNew)
       console.log('useEffect(users: ', users);
     } else {
       console.log('logged name: ', name);
@@ -77,7 +77,12 @@ export function Login() {
   return (
     <Container>
       {!logged && (<>
-        <h1>Входите. Есть Дело.</h1>
+        <h1 className={style.header}>
+          <div className={style.logoBlock}>
+            <img src='./img/logo.png' alt='logo' />
+          </div>
+          Входите! Есть Дело.
+        </h1>
         <form onSubmit={handlerSubmit}>
           <label>
             <span>укажите ваше имя:</span>
@@ -90,7 +95,7 @@ export function Login() {
 
         </form>
         {users.length > 0 && (
-          <div>
+          <div className={style.usersBlock}>
             <div>возможно вы:</div>
             <ul className={style.users}
               onClick={(e) => {
@@ -103,7 +108,7 @@ export function Login() {
                   const b = t.closest('li')?.querySelector('button')
                   if (b) {
                     const nn = b.innerText.trim()
-                    if(!window.confirm(`Удалить дела пользователя ${nn}?`)) return
+                    if (!window.confirm(`Удалить дела пользователя ${nn}?`)) return
                     const nnKey = nn ? b64EncodeUnicode(nn.toLowerCase()) : 'no'
                     remUserInfo(nn, 'methed.2d.' + nnKey)
                     setUsers(getItem())
@@ -125,7 +130,7 @@ export function Login() {
       </>)}
       {logged && (<>
         <div className={style.tLine}>
-          <h1><span className={style.firstUpper}>{name}</span>. Дела.</h1>
+          <h1><span className={style.firstUpper}>{name} - </span> Дела:</h1>
           <button onClick={() => { setLogged(false); setName('') }}>выход</button>
         </div>
 
